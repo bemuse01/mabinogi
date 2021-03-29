@@ -270,6 +270,7 @@ div.pick-table{
     display: flex;
     flex-wrap: wrap;
     flex-direction: column;
+    color: white;
 }
 div.item-pick-container{
     overflow: hidden;

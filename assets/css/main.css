@@ -13,8 +13,11 @@ div#wrap{
     width: 100%;
     height: 100%;
 }
-input[type="radio"]{
+input[type="radio"], input[type="checkbox"]{
     display: none;
+}
+label{
+    cursor: pointer;
 }
 
 
@@ -45,7 +48,7 @@ div#table{
     flex-wrap: wrap;
     flex-flow: row;
 }
-label.on-click-item{
+.on-click-item{
     background: rgba(255, 255, 255, 0.125);
     color: white;
 }
@@ -67,10 +70,10 @@ div.container:nth-child(3){
     margin-right: 0;
     flex: 3;
 }
-label.item{
+.item{
     cursor: pointer;
 }
-label.item:hover{
+.item:hover{
     background: rgba(255, 255, 255, 0.125);
     color: white;
 }
@@ -120,7 +123,6 @@ div.category span{
 
 /* list */
 div.list-container{
-    border: 1px solid rgba(255, 255, 255, 0.125);
     color: rgba(255, 255, 255, 0.6);
 }
 div.list{
@@ -129,44 +131,7 @@ div.list{
     flex-flow: column;
     width: 100%;
     height: 100%;
-}
-div.list-content div:nth-of-type(1){
-    flex: 7.5;
-}
-div.list-content div:nth-of-type(2){
-    flex: 1.2;
-}
-div.list-content div:nth-of-type(3){
-    flex: 1.8;
-}
-div.list-content div:nth-of-type(4){
-    flex: 1.2;
-}
-/* list head */
-div.list-head{
-    padding-right: 10px;
-    display: flex;
-    flex: 0.05;
-    color: white;
-}
-div.list-head div{
-    position: relative;
-}
-div.list-head div span{
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-}
-/* list body */
-div.list-body{
-    flex: 1;
-    overflow-y: auto;
-}
-div.list-body label{
-    width: 100%;
-    height: auto;
-    display: block;
+    border: 1px solid rgba(255, 255, 255, 0.125);
 }
 div.item-list-container{
     width: 100%;
@@ -187,11 +152,75 @@ div.item-list-container div > *{
     overflow: hidden;
     text-overflow: ellipsis;
 }
-div.item-list-container div:nth-of-type(1) span{
+div.item-list-container > div:nth-of-type(1){
+    flex: 7.5;
+}
+div.item-list-container > div:nth-of-type(2){
+    flex: 1.2;
+}
+div.item-list-container > div:nth-of-type(3){
+    flex: 1.8;
+}
+div.item-list-container > div:nth-of-type(4){
+    flex: 1.2;
+}
+div.item-list-container > div:nth-of-type(5){
+    flex: 1.2;
+}
+div.item-list-container > div:nth-of-type(1) span{
     left: 3%;
     transform: translate(0, -50%);
 }
-div.item-list-container div:nth-of-type(4) div{
+div.item-list-container label{
+    position: relative;
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+div.item-list-container label div{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+div.item-list-container label input:checked ~ div.item-list-check{
+    display: block;
+}
+div.item-list-track{
+    width: 2vmin;
+    height: 2vmin;
+    background: rgba(255, 255, 255, 0.2);
+}
+div.item-list-check{
+    width: 1.2vmin;
+    height: 1.2vmin;
+    background: white;
+    display: none;
+}
+/* list head */
+div.list-head{
+    display: flex;
+    flex: 0.05;
+    color: white;
+}
+div.list-head div{
+    position: relative;
+}
+div.list-head div span{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+div.list-head div:last-child{
+    margin-right: 10px;
+}
+/* list body */
+div.list-body{
+    flex: 1;
+    overflow-y: auto;
+}
+div.list-body div.item-list-container div:nth-of-type(4) div{
     width: 1.6vmin;
     height: 1.6vmin;
     background: white;
@@ -202,6 +231,24 @@ div.item-list-conatainer-detail{
 }
 
 
+/* pick container*/
+div.pick-container button{
+    text-decoration: none;
+    background: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.125);
+    color:rgba(255, 255, 255, 0.6);
+    cursor: pointer;
+    font-size: 1.6vmin;
+    flex: 1;
+}
+div.pick-container button:hover{
+    color: white;
+    background:rgba(255, 255, 255, 0.125);
+}
+div.pick-container button:focus{
+    outline: none;
+
+}
 /* pick */
 div.pick{
     border: 1px solid rgba(255, 255, 255, 0.125);
@@ -209,25 +256,10 @@ div.pick{
     color:rgba(255, 255, 255, 0.5);
     font-size: 1.6vmin;
 }
-div.pick-simple > div{
+div.pick > div{
     margin-bottom: 3%;
 }
 /* pick button */
-div.pick button{
-    border: 1px solid rgba(255, 255, 255, 0.125);
-    text-decoration: none;
-    background: transparent;
-    color:rgba(255, 255, 255, 0.6);
-    cursor: pointer;
-    font-size: 1.6vmin;
-}
-div.pick button:hover{
-    color: white;
-    background:rgba(255, 255, 255, 0.125);
-}
-div.pick button:focus{
-    outline: none;
-}
 div.pick-button{
     display: flex;
     flex-wrap: wrap;
@@ -272,32 +304,28 @@ div.pick-table{
     flex-direction: column;
     color: white;
 }
-div.item-pick-container{
+div.item-pick-table-container{
     overflow: hidden;
     width: 100%;
     height: 3.5vmin;
     display: flex;
 }
-div.item-pick-container > div{
+div.item-pick-table-container > div{
     position: relative;
 }
-div.item-pick-container > div:first-child{
+div.item-pick-table-container > div:first-child{
     flex: 0.9;
 }
-div.item-pick-container > div:last-child{
+div.item-pick-table-container > div:last-child{
     flex: 0.1;
 }
-div.item-pick-container > div span{
+div.item-pick-table-container > div span{
     position: absolute;
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
     white-space: nowrap;
 }
-/* div.item-pick-container > div:first-child span{
-    left: 0;
-    transform: translate(0, -50%);
-} */
 /* pick table head */
 div.pick-table-head{
     flex: 0.1;
@@ -306,4 +334,68 @@ div.pick-table-head{
 /* pick table body */
 div.pick-table-body{
     flex: 0.9;
+}
+/* pick prefer */
+div.pick-prefer{
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    color: white;
+    border-top: 1px solid rgba(255, 255, 255, 0.125);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.125);
+    padding-top: 1%;
+    padding-bottom: 1%;
+}
+/* pick prefer head */
+div.pick-prefer-head{
+    flex: 0.1;
+    display: flex;
+}
+/* pick prefer body */
+div.pick-prefer-body{
+    flex: 0.9;
+}
+div.item-pick-prefer-container{
+    overflow: hidden;
+    width: 100%;
+    height: 3.5vmin;
+    display: flex;
+}
+div.item-pick-prefer-container > div{
+    position: relative;
+}
+div.item-pick-prefer-container > div:nth-child(1){
+    flex: 0.75
+}
+div.item-pick-prefer-container > div:nth-child(2){
+    flex: 0.125
+}
+div.item-pick-prefer-container > div:nth-child(3){
+    flex: 0.125
+}
+div.item-pick-prefer-container > div span{
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    white-space: nowrap;
+}
+div.item-pick-prefer-container > div:nth-child(1) span{
+    left: 0;
+    transform: translate(0, -50%);
+}
+
+/* pick change method */
+div.pick-change-method{
+    margin-top: 1%;
+    width: 20%;
+    display: flex;
+    flex-wrap: wrap;
+    height: 3vmin;
+}
+div.pick-change-method button{
+    margin-right: 4%;
+}
+div.pick-change-method button:last-child{
+    margin-right: 0;
 }

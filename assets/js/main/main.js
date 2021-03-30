@@ -8,13 +8,19 @@ new Vue({
             model: {
                 type: '',
                 race: '',
-                list: ''
+                list: []
             },
             style: {
                 pick: {display: 'none'}
             },
-            num: 0,
-            cost: 1200
+            button: {
+                auto: '뽑기'
+            },
+            calc: {
+                num: 0,
+                cost: 1200,
+            },
+            option: 'manual'
         }
     },
     computed: {
@@ -28,7 +34,7 @@ new Vue({
             return this.model.list
         },
         getPrice(){
-            return this.num * this.cost
+            return this.calc.num * this.calc.cost
         }
     },
     watch: {
@@ -37,6 +43,7 @@ new Vue({
             if(race === undefined) return
 
             this.model.race = ''
+            this.model.list = []
             this.clear()
             this.element.table.race.set(race.child)
         },
@@ -46,30 +53,49 @@ new Vue({
                 return
             }
 
-            this.model.list = ''
             this.clear()
             this.element.table.list.set(this.model.type, this.model.race)
         },
         watchList(){
-            this.clear()
+            this.element.table.list.select(this.model.list)
+            if(this.model.list.length === 3) this.element.table.list.disable()
+            else this.element.table.list.enable()
+            
+            console.log(this.model.list)
+            // this.element.table.prefer.set()
         }
     },
     mounted(){
     },
     methods: {
-        // init
-        clickPickButton(){
+        clickManualPickButton(){
             if(this.element.table.list.get().length === 0) return
 
-            this.num++
+            this.calc.num++
             this.style.pick.display = 'block' 
 
-            this.element.table.pick.click(this.element.table.list.get())
+            this.element.table.pick.pickManual(this.element.table.list.get())
+        },
+        clickAutoPickButton(){
+            if(this.element.table.list.get().length === 0) return
+            
         },
         clear(){
-            this.num = 0
+            this.calc.num = 0
             this.element.table.pick.clear()
             this.style.pick.display = 'none' 
+        },
+        changePickMethodToManual(){
+            if(this.option === 'manual') return
+
+            this.clear()
+            this.option = 'manual'
+        },
+        changePickMethodToAuto(){
+            if(this.option === 'auto') return
+
+            this.clear()
+            this.option = 'auto'
         }
     }
 })

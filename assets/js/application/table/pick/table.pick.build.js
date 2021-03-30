@@ -16,7 +16,7 @@ TABLE.pick.build = class{
 
 
     // event
-    click(list){
+    pickManual(list){
         this.element = []
         const sort = [...list].sort((x, y) => this.#sortList(x, y, 'chance_of_appearance'))
         const temp = [], stat = []
@@ -67,6 +67,9 @@ TABLE.pick.build = class{
         })
 
         this.element = stat
+    }
+    pickAuto(list, prefer, calc){
+
     }
     clear(){
         this.element = []

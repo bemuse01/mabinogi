@@ -25,6 +25,7 @@
         <script src="assets/js/application/table/list/table.list.build.js"></script>
         <!-- table pick -->
         <script src="assets/js/application/table/pick/table.pick.build.js"></script>
+        <!-- table prefer -->
         <!-- table build -->
         <script src="assets/js/application/table/table.build.js"></script>
         
@@ -61,50 +62,57 @@
                 </div>
                 <div class="container list-container">
                     <div class="list">
-                        <div class="list-content list-head">
+                        <div class="list-head item-list-container">
                             <div><span>세공 능력치</span></div>
                             <div><span>레벨</span></div>
                             <div><span>확률</span></div>
                             <div><span>중복</span></div>
+                            <div><span>선택</span></div>
                         </div>
-                        <div class="list-content list-body">
-                            <label
+                        <div class="list-body">
+                            <div
                                 v-for="i in element.table.list.get()"
                                 :key="i.key"
                                 :class="i._class"
-                                :for="i._id"
                             >
-                                <input :id="i._id" @click="element.table.list.click(i.key)" v-model="model.list" name="list" type="radio" :value="i.stat">
                                 <div class="item-list-container">
-                                    <div><span>{{i.stat}}</span></div>
-                                    <div><span>{{i.level_range}}</span></div>
-                                    <div><span>{{i.chance_of_appearance}}</span></div>
-                                    <div><div v-if="i.duplication"></div></div>
+                                    <div @click="element.table.list.click(i.key)"><span>{{i.stat}}</span></div>
+                                    <div @click="element.table.list.click(i.key)"><span>{{i.level_range}}</span></div>
+                                    <div @click="element.table.list.click(i.key)"><span>{{i.chance_of_appearance}}</span></div>
+                                    <div @click="element.table.list.click(i.key)"><div v-if="i.duplication"></div></div>
+                                    <div>
+                                        <label :for="i._id">
+                                            <input :id="i._id" type="checkbox" v-model="model.list" :value="i.stat" :disabled="i.param.disable">
+                                            <div class="item-list-track"></div>
+                                            <div class="item-list-check"></div>
+                                        </label>
+                                    </div>
                                 </div>
                                 <div class="item-list-container item-list-conatainer-detail"
                                     v-for="j in i.chance_of_each_level"
                                     :key="j.key"
-                                    :style="i.style"
+                                    v-if="i.param.clicked"
                                 >
                                     <div></div>
                                     <div><span>{{j.level}}</span></div>
                                     <div><span>{{j.inner_chance}}</span></div>
                                     <div></div>
+                                    <div></div>
                                 </div>
-                            </label>
+                            </div>
                         </div>
                     </div>
                 </div>
                 <div class="container pick-container">
-                    <div class="pick pick-simple">
-                        <div class="pick-button pick-simple-button">
-                            <button @click="clickPickButton">뽑기</button>
+                    <div class="pick pick-manual" v-if="option === 'manual'">
+                        <div class="pick-button pick-manual-button">
+                            <button @click="clickManualPickButton">뽑기</button>
                             <button @click="clear">초기화</button>
                         </div>
                         <div class="pick-calc">
                             <div class="pick-calc-count">
                                 <span>뽑은 횟수:</span>
-                                <span>{{num}} 번</span>
+                                <span>{{calc.num}} 번</span>
                             </div>
                             <div class="pick-calc-price">
                                 <span>총 가격:</span>
@@ -113,13 +121,13 @@
                         </div>
                         <div class="pick-table" :style="style.pick">
                             <div class="pick-table-content pick-table-head">
-                                <div class="item-pick-container">
+                                <div class="item-pick-table-container">
                                     <div><span>세공 능력치</span></div>
                                     <div><span>레벨</span></div>
                                 </div>
                             </div>
                             <div class="pick-table-content pick-table-body">
-                                <div class="item-pick-container"
+                                <div class="item-pick-table-container"
                                     v-for="i in this.element.table.pick.get()"
                                     :key="i.key"
                                 >
@@ -128,6 +136,56 @@
                                 </div>
                             </div>
                         </div>
+                    </div>
+                    <div class="pick pick-auto" v-else>
+                        <div class="pick-button pick-auto-button">
+                            <button @click="clickAutoPickButton">{{button.auto}}</button>
+                        </div>
+                        <div class="pick-calc">
+                            <div class="pick-calc-count">
+                                <span>뽑은 횟수:</span>
+                                <span>{{calc.num}} 번</span>
+                            </div>
+                            <div class="pick-calc-price">
+                                <span>총 가격:</span>
+                                <span>{{getPrice}} 원</span>
+                            </div>
+                        </div>
+                        <div class="pick-prefer">
+                            <div class="pick-prefer-content pick-prefer-head">
+                                <div class="item-pick-prefer-container">
+                                    <div><span>선호 세공 능력치</span></div>
+                                    <div><span>레벨 범위</span></div>
+                                    <div><span>레벨 입력</span></div>
+                                </div>
+                            </div>
+                            <div class="pick-prefer-content pick-prefer-body">
+                                <!-- <div><span>선호 세공 능력치</span></div>
+                                <div><span>레벨 범위</span></div>
+                                <div><input type="text"></div> -->
+                            </div>
+                        </div>
+                        <div class="pick-table" :style="style.pick">
+                            <div class="pick-table-content pick-table-head">
+                                <div class="item-pick-table-container">
+                                    <div><span>세공 능력치</span></div>
+                                    <div><span>레벨</span></div>
+                                </div>
+                            </div>
+                            <div class="pick-table-content pick-table-body">
+                                <div class="item-pick-table-container"
+                                    v-for="i in this.element.table.pick.get()"
+                                    :key="i.key"
+                                >
+                                    <div><span>{{i.name}}</span></div>
+                                    <div><span>{{i.level}}</span></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="pick-change-method">
+                        <button @click="changePickMethodToManual">수동</button>
+                        <button @click="changePickMethodToAuto">자동</button>
                     </div>
                 </div>
             </div>

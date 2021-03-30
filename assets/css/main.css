@@ -16,6 +16,9 @@ div#wrap{
 input[type="radio"], input[type="checkbox"]{
     display: none;
 }
+input[type="text"]:focus{
+    outline: none;
+}
 label{
     cursor: pointer;
 }
@@ -373,7 +376,7 @@ div.item-pick-prefer-container > div:nth-child(2){
 div.item-pick-prefer-container > div:nth-child(3){
     flex: 0.125
 }
-div.item-pick-prefer-container > div span{
+div.item-pick-prefer-container > div *{
     position: absolute;
     left: 50%;
     top: 50%;
@@ -383,6 +386,15 @@ div.item-pick-prefer-container > div span{
 div.item-pick-prefer-container > div:nth-child(1) span{
     left: 0;
     transform: translate(0, -50%);
+}
+div.item-pick-prefer-container > div input{
+    width: 40%;
+    height: 80%;
+    text-align: center;
+    background: rgba(255, 255, 255, 0.125);
+    color: white;
+    font-size: 1.6vmin;
+    border: none;
 }
 
 /* pick change method */

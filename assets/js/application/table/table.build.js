@@ -15,6 +15,7 @@ TABLE.build = class{
         this.#createRace()
         this.#createList()
         this.#createPick()
+        this.#createPrefer()
     }
     #createType(){
         this.type = new TABLE.type.build()
@@ -27,5 +28,8 @@ TABLE.build = class{
     }
     #createPick(){
         this.pick = new TABLE.pick.build()
+    }
+    #createPrefer(){
+        this.prefer = new TABLE.prefer.build()
     }
 }

@@ -58,11 +58,11 @@ new Vue({
         },
         watchList(){
             this.element.table.list.select(this.model.list)
-            if(this.model.list.length === 3) this.element.table.list.disable()
+            if(this.model.list.length === 2) this.element.table.list.disable()
             else this.element.table.list.enable()
             
-            console.log(this.model.list)
-            // this.element.table.prefer.set()
+            this.clear()
+            this.element.table.prefer.set(this.element.table.list.get(), this.model.list)
         }
     },
     mounted(){
@@ -72,13 +72,18 @@ new Vue({
             if(this.element.table.list.get().length === 0) return
 
             this.calc.num++
-            this.style.pick.display = 'block' 
+            this.style.pick.display = 'block'
 
             this.element.table.pick.pickManual(this.element.table.list.get())
         },
         clickAutoPickButton(){
-            if(this.element.table.list.get().length === 0) return
-            
+            const list = this.element.table.list.get()
+            const prefer = this.element.table.prefer.get()
+            if(list.length === 0 || prefer.length === 0) return
+
+            this.style.pick.display = 'block'
+
+            this.element.table.pick.pickAuto(list, prefer, this.calc)
         },
         clear(){
             this.calc.num = 0

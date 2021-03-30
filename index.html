@@ -26,6 +26,7 @@
         <!-- table pick -->
         <script src="assets/js/application/table/pick/table.pick.build.js"></script>
         <!-- table prefer -->
+        <script src="assets/js/application/table/prefer/table.prefer.build.js"></script>
         <!-- table build -->
         <script src="assets/js/application/table/table.build.js"></script>
         
@@ -160,9 +161,14 @@
                                 </div>
                             </div>
                             <div class="pick-prefer-content pick-prefer-body">
-                                <!-- <div><span>선호 세공 능력치</span></div>
-                                <div><span>레벨 범위</span></div>
-                                <div><input type="text"></div> -->
+                                <div class="item-pick-prefer-container"
+                                    v-for="i in element.table.prefer.get()"
+                                    :key="i.key"
+                                >
+                                    <div><span>{{i.stat}}</span></div>
+                                    <div><span>{{i.level_range}}</span></div>
+                                    <div><input type="text" @change="e => element.table.prefer.change(i.key, e)" :value="i.value"></div>
+                                </div>
                             </div>
                         </div>
                         <div class="pick-table" :style="style.pick">

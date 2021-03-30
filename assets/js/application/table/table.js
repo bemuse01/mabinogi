@@ -2,5 +2,6 @@ const TABLE = {
     type: {},
     race: {},
     list: {},
-    pick: {}
+    pick: {},
+    prefer: {}
 }

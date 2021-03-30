@@ -400,14 +400,30 @@ div.item-pick-prefer-container > div input{
 /* pick change method */
 div.pick-change-method{
     margin-top: 1%;
-    width: 20%;
+    width: 100%;
+    height: 3vmin;
     display: flex;
     flex-wrap: wrap;
-    height: 3vmin;
 }
 div.pick-change-method button{
     margin-right: 4%;
 }
 div.pick-change-method button:last-child{
     margin-right: 0;
+}
+div.pick-change-method-button{
+    display: flex;
+    flex-wrap: wrap;
+    width: 20%;
+}
+div.pick-change-method-alert{
+    position: relative;
+    width: 80%;
+}
+div.pick-change-method-alert span{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    white-space: nowrap;
 }

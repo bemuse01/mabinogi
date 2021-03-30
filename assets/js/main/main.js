@@ -90,6 +90,7 @@ new Vue({
 
             this.clear()
             this.option = 'manual'
+            this.model.list = []
         },
         changePickMethodToAuto(){
             if(this.option === 'auto') return

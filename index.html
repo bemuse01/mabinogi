@@ -67,7 +67,7 @@
                             <div><span>레벨</span></div>
                             <div><span>확률</span></div>
                             <div><span>중복</span></div>
-                            <div><span>선택</span></div>
+                            <div v-if="option !== 'manual'"><span>선택</span></div>
                         </div>
                         <div class="list-body">
                             <div
@@ -80,7 +80,7 @@
                                     <div @click="element.table.list.click(i.key)"><span>{{i.level_range}}</span></div>
                                     <div @click="element.table.list.click(i.key)"><span>{{i.chance_of_appearance}}</span></div>
                                     <div @click="element.table.list.click(i.key)"><div v-if="i.duplication"></div></div>
-                                    <div>
+                                    <div v-if="option !== 'manual'">
                                         <label :for="i._id">
                                             <input :id="i._id" type="checkbox" v-model="model.list" :value="i.stat" :disabled="i.param.disable">
                                             <div class="item-list-track"></div>
@@ -97,7 +97,7 @@
                                     <div><span>{{j.level}}</span></div>
                                     <div><span>{{j.inner_chance}}</span></div>
                                     <div></div>
-                                    <div></div>
+                                    <div v-if="option !== 'manual'"></div>
                                 </div>
                             </div>
                         </div>

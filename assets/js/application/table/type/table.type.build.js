@@ -22,7 +22,6 @@ TABLE.type.build = class{
                 clicked: false
             }
         }))
-        console.log(this.element)
     }
     #createType(){
         const obj = {}

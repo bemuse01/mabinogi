@@ -152,8 +152,6 @@ TABLE.pick.build = class{
         }
 
         this.element = stat
-
-        console.log(this.element)
     }
     clear(){
         this.element = []

@@ -17,19 +17,19 @@ TABLE.list.build = class{
 
     // event
     click(index){
-        const temp = [...this.element]
-        temp.forEach((e, i) => {
-            if(index === i && e.param.clicked === false) {
-                e._class = 'item item-list on-click-item'
-                e.param.clicked = true
-                e.style.display = 'block'
-            }else{
-                e._class = 'item item-list'
-                e.param.clicked = false
-                e.style.display = 'none'
-            }
-        })
-        this.element = temp
+        const newItem = {...this.element.find(e => e.key === index)}
+
+        if(newItem.param.clicked === false){
+            newItem._class = 'item item-list on-click-item'
+            newItem.param.clicked = true
+            newItem.style.display = 'block'
+        }else{
+            newItem._class = 'item item-list'
+            newItem.param.clicked = false
+            newItem.style.display = 'none'
+        }
+
+        this.element.splice(index, 1, newItem)
     }
     set(type, race){
         this.element = []
